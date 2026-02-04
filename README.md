@@ -1,36 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 💕 Valentine Web - Surat Cinta Digital
 
-## Getting Started
+Website Valentine interaktif bertema romantis dengan warna pastel. Dibuat dengan Next.js (App Router) dan JSX.
 
-First, run the development server:
+## 🎯 Fitur
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- ✨ Single Page dengan scroll navigation
+- 💌 Animasi amplop yang bisa dibuka
+- 🖼️ Gallery foto kenangan
+- 🎵 Section playlist musik
+- 💕 Floating hearts animation
+- 🎨 Tema warna pastel yang lembut
+
+## 🗂️ Struktur Project
+
+```
+valentine-web/
+│
+├─ src/
+│   ├─ app/
+│   │   ├─ page.jsx        ← Halaman utama
+│   │   ├─ layout.jsx      ← Layout global
+│   │   └─ globals.css     ← Styling global
+│   │
+│   ├─ components/
+│   │   ├─ HeroSection.jsx     ← Landing section
+│   │   ├─ LoveLetter.jsx      ← Surat cinta
+│   │   ├─ Envelope.jsx        ← Animasi amplop
+│   │   ├─ MemoriesSection.jsx ← Gallery foto
+│   │   ├─ PlaylistSection.jsx ← Playlist musik
+│   │   ├─ FloatingHearts.jsx  ← Animasi hati melayang
+│   │   └─ Footer.jsx          ← Footer/closing
+│   │
+│   ├─ assets/
+│   │   └─ images/
+│   │       └─ memories/   ← Simpan foto kenangan di sini
+│   │
+│   └─ utils/              ← Helper functions (opsional)
+│
+├─ public/
+│   └─ memories/           ← Folder alternatif untuk foto
+│
+└─ package.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Cara Menjalankan
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+# Install dependencies
+npm install
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Jalankan development server
+npm run dev
 
-## Learn More
+# Buka http://localhost:3000
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🎨 Library yang Digunakan
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Next.js 15** - Framework React
+- **Tailwind CSS** - Styling
+- **Framer Motion** - Animasi
+- **Lucide React** - Icons
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📝 Cara Kustomisasi
 
-## Deploy on Vercel
+### 1. Ganti Teks Surat Cinta
+Edit file `src/components/LoveLetter.jsx`, cari variabel `letterContent`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 2. Tambah Foto Kenangan
+1. Simpan foto di folder `public/memories/`
+2. Edit `src/components/MemoriesSection.jsx`
+3. Update array `memories` dengan path foto kamu
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. Ganti Playlist
+Edit file `src/components/PlaylistSection.jsx`, update array `songs`
+
+### 4. Embed Spotify Playlist
+Di `PlaylistSection.jsx`, ganti placeholder dengan iframe Spotify:
+```jsx
+<iframe 
+  src="https://open.spotify.com/embed/playlist/YOUR_PLAYLIST_ID" 
+  width="100%" 
+  height="380" 
+  frameBorder="0" 
+  allow="encrypted-media"
+/>
+```
+
+## 🎨 Palet Warna
+
+| Warna | Hex Code |
+|-------|----------|
+| Pink Light | #FFE4EC |
+| Pink Medium | #FFB6C1 |
+| Pink Dark | #FF69B4 |
+| Rose | #FFB7C5 |
+| Cream | #FFF5F5 |
+| Lavender | #E6E6FA |
+| Peach | #FFDAB9 |
+| Coral | #FF7F7F |
+
+## 🔤 Font
+
+- **Dancing Script** - Untuk teks cursive/romantis
+- **Quicksand** - Untuk body text
+
+## 💕 Happy Valentine's Day!
+
+Made with ❤️ for someone special
