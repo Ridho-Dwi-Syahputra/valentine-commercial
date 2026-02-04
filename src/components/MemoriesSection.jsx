@@ -1,23 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Camera, Heart, X } from "lucide-react";
 
 // Import actual images
-import image1 from "../assets/images/memories/image-1.jpeg";
-import image2 from "../assets/images/memories/image-2.jpeg";
-import image3 from "../assets/images/memories/image-3.jpeg";
-import image4 from "../assets/images/memories/image-4.jpeg";
-import image5 from "../assets/images/memories/image-5.jpeg";
-import image6 from "../assets/images/memories/image-6.jpeg";
+import image1 from "../assets/images/memories/image-1.jpg";
+import image2 from "../assets/images/memories/image-2.jpg";
+import image3 from "../assets/images/memories/image-3.jpg";
+import image4 from "../assets/images/memories/image-4.jpg";
+import image5 from "../assets/images/memories/image-5.jpg";
+import image6 from "../assets/images/memories/image-6.jpg";
 
 // Memories data with actual images
 const memories = [
   {
     id: 1,
     image: image1,
-    caption: "Ini Foto Pertamaa Kitaa Ketemuu",
+    caption: "Ini Foto Pertamaa ",
     date: "25 Juny 2025",
   },
   {
@@ -29,40 +29,50 @@ const memories = [
   {
     id: 3,
     image: image3,
-    caption: "Photobooth pertamaaa kitaaa yeayy",
+    caption: "Photobooth pertamaaa kitaaa ",
     date: "26 Juny 2025",
   },
   {
     id: 4,
     image: image4,
-    caption: "Ini Waktu aku nyusulin ayaaang di TM",
+    caption: "Ini Waktu aku lalala",
     date: "29 Juny 2025",
   },
   {
     id: 5,
     image: image5,
-    caption: "Ini Foto Waktu Terakhir kita nge datee dan malam sebelum kita tunangan",
+    caption: "Ini Foto Waktu ",
     date: "26 July",
   },
   {
     id: 6,
-    image: image6, // Using image-5 for the 6th slot as requested
-    caption: "Ini Waktu Aku Ulang Tahun, Ayang Ngacii aku curprisee yeayy",
-    date: "9 Desember 2025",
+    image: image6,
+    caption: "Ini Waktu  pergi ke pantai",
+    date: "12 Desember 2025",
   },
 ];
 
 export default function MemoriesSection() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <section className="min-h-screen py-16 sm:py-20 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
       {/* Section Header */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.6 }}
         className="flex flex-col items-center justify-center text-center mb-12 sm:mb-16 md:mb-20 w-full"
       >
         {/* Title with Icons */}
@@ -76,7 +86,7 @@ export default function MemoriesSection() {
 
         {/* Subtitle */}
         <p className="text-pink-400/80 text-sm sm:text-base md:text-lg max-w-lg mx-auto italic mb-6 sm:mb-8 select-none pointer-events-none">
-          Kok Dikit? Ya gimana lagi ayang duyuu lebih milih teman teman ayang
+          ini pesan kamu
         </p>
 
         {/* Decorative Line */}
@@ -94,21 +104,22 @@ export default function MemoriesSection() {
           {memories.map((memory, index) => (
             <motion.div
               key={memory.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -5, scale: 1.02 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.5, delay: isMobile ? 0 : index * 0.08 }}
               onClick={() => setSelectedImage(memory)}
               className="cursor-pointer w-full group"
+              style={{ transform: "translateZ(0)" }}
             >
-              {/* Image Card */}
+              {/* Image Card - Simplified hover for mobile */}
               <div className="relative w-full aspect-square rounded-2xl overflow-hidden shadow-lg">
                 {/* Actual Image */}
                 <img
                   src={memory.image.src}
                   alt={memory.caption}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
 
                 {/* Heart Icons - top left and right corners */}
@@ -127,8 +138,8 @@ export default function MemoriesSection() {
                   />
                 </div>
 
-                {/* Hover Overlay - Pink gradient with centered text */}
-                <div className="absolute inset-0 bg-gradient-to-t from-pink-400/80 via-pink-300/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-end pb-8 sm:pb-10">
+                {/* Hover Overlay - Mobile: always visible caption at bottom */}
+                <div className={`absolute inset-0 bg-gradient-to-t from-pink-400/80 via-pink-300/40 to-transparent ${isMobile ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'} transition-opacity duration-300 flex flex-col items-center justify-end pb-8 sm:pb-10`}>
                   <div className="flex flex-col items-center justify-center text-center select-none pointer-events-none px-4">
                     <p className="text-white font-cursive text-xl sm:text-2xl mb-2 drop-shadow-lg">
                       {memory.caption}
@@ -150,7 +161,7 @@ export default function MemoriesSection() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.5 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
         className="flex items-center justify-center mt-12 sm:mt-16"
       >
         <br></br>
@@ -158,27 +169,31 @@ export default function MemoriesSection() {
           <div className="hidden sm:block w-16 sm:w-24 h-[1px] bg-gradient-to-r from-transparent to-pink-300"></div>
           <div className="flex items-center gap-2">
             <Heart size={14} className="text-pink-400" fill="currentColor" />
-            <span className="text-pink-400 text-sm sm:text-base font-cursive italic select-none text-center">awas masih nanya, "ayang sayang sama aku"</span>
+            <span className="text-pink-400 text-sm sm:text-base font-cursive italic select-none text-center">masih nanya sayang sama aku?</span>
             <Heart size={14} className="text-pink-400" fill="currentColor" />
           </div>
           <div className="hidden sm:block w-16 sm:w-24 h-[1px] bg-gradient-to-l from-transparent to-pink-300"></div>
         </div>
       </motion.div>
 
-      {/* Lightbox Modal */}
-      <AnimatePresence>
+      {/* Lightbox Modal - Fixed AnimatePresence mode */}
+      <AnimatePresence mode="sync">
         {selectedImage && (
           <motion.div
+            key="lightbox-overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             onClick={() => setSelectedImage(null)}
             className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 sm:p-8"
           >
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
+              key="lightbox-content"
+              initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
               className="relative max-w-3xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl"
             >

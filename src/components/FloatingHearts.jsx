@@ -17,49 +17,62 @@ const colors = [
 
 export default function FloatingHearts() {
   const [mounted, setMounted] = useState(false);
-
-  // Use useMemo to prevent re-creating items on each render
-  const items = useMemo(() => {
-    // Generate 70 items - 70% flowers, 30% hearts for MORE flowers
-    return Array.from({ length: 70 }, (_, i) => ({
-      id: i,
-      x: (i * 1.5) % 100,
-      size: 28 + (i % 8) * 5,
-      duration: 14 + (i % 8) * 2,
-      delay: (i % 25) * 0.7,
-      opacity: 0.2 + (i % 4) * 0.08,
-      color: colors[i % colors.length],
-      sway: 20 + (i % 6) * 10,
-      filled: i % 2 === 0,
-      // 70% flowers, 30% hearts
-      isFlower: i % 10 < 7,
-    }));
-  }, []);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    // Detect mobile device
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Use useMemo with REDUCED items for mobile - only 15 for mobile, 40 for desktop
+  const items = useMemo(() => {
+    const count = isMobile ? 15 : 40;
+    return Array.from({ length: count }, (_, i) => ({
+      id: i,
+      x: (i * 2.5) % 100,
+      size: 24 + (i % 6) * 4,
+      duration: 16 + (i % 6) * 3,
+      delay: (i % 15) * 1.2,
+      opacity: 0.15 + (i % 4) * 0.05,
+      color: colors[i % colors.length],
+      sway: 15 + (i % 5) * 8,
+      filled: i % 2 === 0,
+      isFlower: i % 10 < 7,
+    }));
+  }, [isMobile]);
+
+  // Secondary layer - ONLY for desktop
+  const largeItems = useMemo(() => {
+    if (isMobile) return [];
+    return items.slice(0, 12);
+  }, [items, isMobile]);
 
   if (!mounted) return null;
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {/* Main layer - More Flowers than Hearts */}
+      {/* Main layer - Reduced for mobile */}
       {items.map((item) => (
         <motion.div
           key={item.id}
           className={`absolute ${item.color}`}
           style={{
             left: `${item.x}%`,
-            bottom: "-80px",
-            willChange: "transform, opacity",
+            bottom: "-60px",
+            willChange: "transform",
+            transform: "translateZ(0)", // GPU acceleration
           }}
           animate={{
-            y: [0, -2200],
+            y: [0, -1800],
             x: [0, item.sway, -item.sway * 0.5, 0],
-            rotate: [0, 8, -8, 0],
+            rotate: [0, 5, -5, 0],
             opacity: [0, item.opacity, item.opacity, 0],
-            scale: [0.9, 1, 1.1, 0.9],
           }}
           transition={{
             duration: item.duration,
@@ -84,65 +97,33 @@ export default function FloatingHearts() {
         </motion.div>
       ))}
 
-      {/* Second layer - Large flowers */}
-      {items.slice(0, 25).map((item, index) => (
+      {/* Second layer - DESKTOP ONLY */}
+      {largeItems.map((item) => (
         <motion.div
           key={`large-${item.id}`}
-          className="absolute text-pink-200/25"
+          className="absolute text-pink-200/20"
           style={{
             left: `${(item.x + 50) % 100}%`,
-            bottom: "-120px",
-            willChange: "transform, opacity",
+            bottom: "-100px",
+            willChange: "transform",
+            transform: "translateZ(0)",
           }}
           animate={{
-            y: [0, -2500],
+            y: [0, -2000],
             x: [0, item.sway * 1.2, -item.sway * 0.8, 0],
-            rotate: [0, 6, -6, 0],
-            opacity: [0, 0.2, 0.2, 0],
-            scale: [0.95, 1, 1.1, 0.95],
-          }}
-          transition={{
-            duration: item.duration + 6,
-            repeat: Infinity,
-            delay: item.delay + 2,
-            ease: "linear",
-          }}
-        >
-          <Flower2
-            size={item.size + 35}
-            strokeWidth={1}
-            fill="currentColor"
-          />
-        </motion.div>
-      ))}
-
-      {/* Third layer - Extra large background flowers */}
-      {items.slice(0, 18).map((item, index) => (
-        <motion.div
-          key={`xlarge-${item.id}`}
-          className="absolute text-pink-100/20"
-          style={{
-            left: `${(item.x + 25) % 100}%`,
-            bottom: "-150px",
-            willChange: "transform, opacity",
-          }}
-          animate={{
-            y: [0, -2800],
-            x: [0, item.sway * 1.5, -item.sway, 0],
             rotate: [0, 4, -4, 0],
             opacity: [0, 0.15, 0.15, 0],
-            scale: [0.9, 1, 1.15, 0.9],
           }}
           transition={{
-            duration: item.duration + 12,
+            duration: item.duration + 8,
             repeat: Infinity,
-            delay: item.delay + 4,
+            delay: item.delay + 3,
             ease: "linear",
           }}
         >
           <Flower2
-            size={item.size + 55}
-            strokeWidth={0.8}
+            size={item.size + 30}
+            strokeWidth={1}
             fill="currentColor"
           />
         </motion.div>

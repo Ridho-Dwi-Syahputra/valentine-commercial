@@ -1,9 +1,21 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Heart, ChevronDown } from "lucide-react";
 
 export default function HeroSection() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const scrollToLetter = () => {
     const letterSection = document.getElementById("love-letter");
     if (letterSection) {
@@ -11,18 +23,21 @@ export default function HeroSection() {
     }
   };
 
-  // Fixed positions for hearts to avoid hydration issues
-  const heartPositions = [
+  // Reduced heart positions - only 6 for mobile, 12 for desktop
+  const heartPositions = isMobile ? [
+    { left: "10%", top: "15%" },
+    { left: "85%", top: "20%" },
+    { left: "15%", top: "70%" },
+    { left: "80%", top: "75%" },
+    { left: "50%", top: "10%" },
+    { left: "50%", top: "85%" },
+  ] : [
     { left: "5%", top: "15%" },
     { left: "90%", top: "10%" },
     { left: "8%", top: "75%" },
     { left: "88%", top: "80%" },
     { left: "15%", top: "45%" },
     { left: "85%", top: "50%" },
-    { left: "12%", top: "25%" },
-    { left: "82%", top: "35%" },
-    { left: "20%", top: "65%" },
-    { left: "78%", top: "70%" },
     { left: "25%", top: "20%" },
     { left: "75%", top: "60%" },
     { left: "35%", top: "8%" },
@@ -33,7 +48,7 @@ export default function HeroSection() {
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8">
-      {/* Decorative Hearts Background - Fixed Positions */}
+      {/* Decorative Hearts Background - Reduced for mobile */}
       <div className="absolute inset-0 pointer-events-none">
         {heartPositions.map((pos, i) => (
           <motion.div
@@ -42,48 +57,24 @@ export default function HeroSection() {
             style={{
               left: pos.left,
               top: pos.top,
+              willChange: "transform",
+              transform: "translateZ(0)",
             }}
             animate={{
-              y: [0, -20, 0],
-              rotate: [0, 5, -5, 0],
-              scale: [1, 1.1, 1],
-              opacity: [0.3, 0.6, 0.3],
+              y: [0, -15, 0],
+              opacity: [0.3, 0.5, 0.3],
             }}
             transition={{
-              duration: 3 + i * 0.5,
+              duration: 4 + i * 0.5,
               repeat: Infinity,
-              delay: i * 0.3,
+              delay: i * 0.4,
               ease: "easeInOut",
             }}
           >
-            <Heart 
-              size={i % 2 === 0 ? 30 : 24} 
+            <Heart
+              size={i % 2 === 0 ? 28 : 22}
               strokeWidth={1.5}
             />
-          </motion.div>
-        ))}
-        
-        {/* Additional Pulsing Hearts */}
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={`pulse-${i}`}
-            className="absolute text-pink-200/20"
-            style={{
-              left: `${10 + i * 12}%`,
-              top: `${30 + (i % 3) * 20}%`,
-            }}
-            animate={{
-              scale: [1, 1.5, 1],
-              opacity: [0.2, 0.5, 0.2],
-            }}
-            transition={{
-              duration: 2 + i * 0.3,
-              repeat: Infinity,
-              delay: i * 0.5,
-              ease: "easeInOut",
-            }}
-          >
-            <Heart size={18 + (i % 3) * 6} strokeWidth={1} />
           </motion.div>
         ))}
       </div>
@@ -125,7 +116,7 @@ export default function HeroSection() {
           className="font-cursive text-5xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] gradient-text mb-6 sm:mb-8 md:mb-10 leading-tight text-center select-none"
           style={{ whiteSpace: 'nowrap' }}
         >
-          Raisya Bungaya
+          Your Special Person
         </motion.h1>
 
         {/* Quote */}
@@ -136,7 +127,7 @@ export default function HeroSection() {
           className="text-gray-500 text-base sm:text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto mb-12 sm:mb-14 md:mb-16 lg:mb-20 italic font-light text-center px-4 select-none"
         >
           "Falling in love may seem cheesy,
-but not with the right person, and that person is you."
+          but not with the right person, and that person is you."
         </motion.p>
         <br></br>
         {/* CTA Button */}
@@ -157,7 +148,7 @@ but not with the right person, and that person is you."
           </motion.button>
         </motion.div>
         <br></br>
-        {/* Subtitle under button, tanpa garis dekoratif */}
+        {/* Subtitle under button */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

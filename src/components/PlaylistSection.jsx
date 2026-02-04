@@ -26,7 +26,7 @@ export default function PlaylistSection() {
 
         {/* Subtitle */}
         <p className="text-pink-400/80 text-base md:text-lg max-w-lg mx-auto italic mb-8 select-none pointer-events-none">
-          Lagu lagu ini khusus buat ayaang
+          Lagu lagu ini khusus buat kamu
         </p>
 
         {/* Decorative Line */}
@@ -75,7 +75,7 @@ export default function PlaylistSection() {
           <div className="w-full sm:w-[90%] max-w-xl mx-auto transform transition-transform duration-300 rounded-2xl overflow-hidden shadow-2xl mb-8">
             <iframe
               style={{ borderRadius: "20px" }}
-              src="https://open.spotify.com/embed/playlist/6fPw1Rnji2M5QfQfA0yGdb?utm_source=generator&theme=0"
+              src="https://open.spotify.com/embed/playlist/3apucrjRIUJwDZyKt4zaWG?utm_source=generator&theme=0"
               width="100%"
               height="400"
               allowFullScreen=""

@@ -8,13 +8,11 @@ import Envelope from "./Envelope";
 export default function LoveLetter() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const letterContent = `Haloo Sayaaang, Aku mau ngucapin makasiii bangett karena udah mau modusin aku pertama kali. Mungkin emang betul kata ayaang, kalau ayaang yang ga mulai dulu, mungkin kita ga sampai ke titik ini. Makasiii yaa sayaaang karena udah mau perjuangin aku "awalnya". Awalnya ajaa yaaa, karena ayang tuh ngeselin waktu kita masih hts sama awal awal pacaran, ayang banyak boongin sama nyisihin aku. Ayang selalu prioritasin teman teman ayaang. Tapi yaa, walaupun gitu aku tetap sayaaangg bangeett sama ayaang, aku yakin ayang pasti bakal berubah, ayang pasti ga ngulangin apa yang ga aku suka dan ternyataa aku emang benarr. Ayang mau berubah demi aku, sekarang ayaang ga nyisihin aku agii, ayang selaluu prioritasin aku, makaciii yaa cayaangnyaa akuu. 
-  
-  Maaf yaa kalau aku kadang ngeselin, kadang suka buat ayang marah, buat ayaang nangiss, Maaf yaaa sayaaang. Aku ga ada maksud buat ayaang nangiss, aku cuman mau isengin ayang, tapi ternyataa too much sampai buat ayang nangiss, tapi ayang tuh gaboyee minta minta putuss gituu, aku sedihh... kalau kita ada masalah, ayaang selalu minta minta putuss, kasian tigran nanti ayaang. Ayaaang tuh haruss ingatt, kalau satu satunya cewek yang ada di hati aku tuh cumann ayaang, cuman ayang cewek yang aku effort in sampai sejauh ini, cuman samaa ayaang aku se kecintaan ini, cumaan ayang satu satunya cewek yang hubungannya paling lama sama aku, yaa walaupun ayang engga yaaa. Jadiii, ayaang tuhhh ga boyeh jealousss, I'm yourss babyy.  
-  
-  Akuuu tuhhh sayaaaaaaaaangggggg bangeeeett bangeeett bangeeeeett bangeeeettt bangeeetttt camaaa ayaang, makasih yaa udah buat aku se happy ini. aku janjii bakall buat ayang happy jugaa camaa akuu. Yeayyy Congratss ayaang, kitaa udah sampaii sejauh iniii. Janjii yaa kalau ada masalahh, kita selesain baik baik, kita ga boyehh minta minta putuss, kita gaboleh diamin masalah, gaboyeh block block, kalau ayang yang salah, aku bakal dengarin. teyuss kalau aku yang salah, ayang hayuss dengarinn jugaa yaa, gaboyehh biyaang putuss putuss yaa cintaa, ga boyeehh biyaaang udahan, gamau di chat lalalalaa. Wufyuuuuu Cayaaanggggnyaaa akuuu.💖💖💖
-  
-  Happy Valentine's Dayy Sayaaangggg.💘💘💘`;
+  const letterContent = `Kadang aku mikir, dari sekian banyak hal yang terjadi di hidup ini, ketemu kamu tuh salah satu yang paling bikin aku bersyukur. Bukan karena semuanya selalu sempurna, tapi karena bareng kamu, hal-hal sederhana jadi terasa cukup. Cara kamu hadir, tanpa sadar, selalu bikin hari-hariku lebih tenang.
+
+Aku suka bagaimana kita bisa ketawa tanpa alasan yang jelas, ngobrol sampai lupa waktu, atau diam tapi tetap merasa dekat. Kamu ngajarin aku bahwa cinta nggak selalu harus besar dan ribut, kadang cukup konsisten, jujur, dan saling memahami. Dan di situ, aku nemu rasa pulang.
+
+Di hari Valentine ini, aku cuma pengen bilang: terima kasih sudah jadi kamu, dengan segala versi baik dan kurangnya. Semoga ke depannya, kita bisa terus jalan bareng, pelan-pelan, sambil saling jaga. Kalau aku boleh berharap satu hal, semoga selalu ada “kita” di cerita-cerita selanjutnya 💘💘💘`;
 
   return (
     <section
@@ -58,8 +56,7 @@ export default function LoveLetter() {
         transition={{ duration: 0.8, delay: 0.2 }}
         className="flex items-center justify-center w-full max-w-3xl mx-auto"
       >
-        <AnimatePresence mode="wait">
-          <br></br>
+        <AnimatePresence mode="sync">
           {!isOpen ? (
             <motion.div
               key="envelope"
