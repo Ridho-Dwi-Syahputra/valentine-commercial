@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Heart } from "lucide-react";
+import { Flower2 } from "lucide-react";
 
-// Color variants for hearts - pink pastel and soft red
-const heartColors = [
+// Color variants for flowers - pink pastel and soft colors
+const flowerColors = [
   "text-pink-200",
   "text-pink-300",
   "text-pink-400",
@@ -16,13 +16,13 @@ const heartColors = [
 ];
 
 export default function FloatingHearts() {
-  const [hearts, setHearts] = useState([]);
+  const [flowers, setFlowers] = useState([]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    // Generate 60 hearts with random properties for much denser coverage and BIGGER sizes
-    const initialHearts = Array.from({ length: 60 }, (_, i) => ({
+    // Generate 60 flowers with random properties for much denser coverage and BIGGER sizes
+    const initialFlowers = Array.from({ length: 60 }, (_, i) => ({
       id: i,
       // Spread across entire width
       x: (i * 1.7) % 100,
@@ -35,25 +35,25 @@ export default function FloatingHearts() {
       // Opacity (0.2 - 0.5 for more visible effect)
       opacity: 0.2 + (i % 4) * 0.1,
       // Random color
-      color: heartColors[i % heartColors.length],
+      color: flowerColors[i % flowerColors.length],
       // Gentle sway amount
       sway: 20 + (i % 6) * 12,
-      // More filled hearts
+      // More filled flowers
       filled: i % 2 === 0,
     }));
-    setHearts(initialHearts);
+    setFlowers(initialFlowers);
   }, []);
 
   if (!mounted) return null;
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {hearts.map((heart) => (
+      {flowers.map((flower) => (
         <motion.div
-          key={heart.id}
-          className={`absolute ${heart.color}`}
+          key={flower.id}
+          className={`absolute ${flower.color}`}
           style={{
-            left: `${heart.x}%`,
+            left: `${flower.x}%`,
             bottom: "-80px",
           }}
           animate={{
@@ -62,10 +62,10 @@ export default function FloatingHearts() {
             // Gentle side-to-side sway
             x: [
               0,
-              heart.sway,
-              -heart.sway * 0.5,
-              heart.sway * 0.8,
-              -heart.sway * 0.3,
+              flower.sway,
+              -flower.sway * 0.5,
+              flower.sway * 0.8,
+              -flower.sway * 0.3,
               0,
             ],
             // Slow rotation
@@ -73,87 +73,87 @@ export default function FloatingHearts() {
             // Smooth opacity fade
             opacity: [
               0,
-              heart.opacity * 0.6,
-              heart.opacity,
-              heart.opacity,
-              heart.opacity * 0.7,
+              flower.opacity * 0.6,
+              flower.opacity,
+              flower.opacity,
+              flower.opacity * 0.7,
               0,
             ],
             // Gentle scale pulse
             scale: [0.8, 1, 1.1, 1, 0.9, 0.8],
           }}
           transition={{
-            duration: heart.duration,
+            duration: flower.duration,
             repeat: Infinity,
-            delay: heart.delay,
+            delay: flower.delay,
             ease: "easeInOut",
           }}
         >
-          <Heart 
-            size={heart.size} 
-            strokeWidth={1.5} 
-            fill={heart.filled ? "currentColor" : "none"}
+          <Flower2
+            size={flower.size}
+            strokeWidth={1.5}
+            fill={flower.filled ? "currentColor" : "none"}
           />
         </motion.div>
       ))}
-      
-      {/* Additional layer of EXTRA LARGE hearts for more impact */}
-      {hearts.slice(0, 20).map((heart, index) => (
+
+      {/* Additional layer of EXTRA LARGE flowers for more impact */}
+      {flowers.slice(0, 20).map((flower, index) => (
         <motion.div
-          key={`large-${heart.id}`}
+          key={`large-${flower.id}`}
           className="absolute text-pink-200/25"
           style={{
-            left: `${(heart.x + 50) % 100}%`,
+            left: `${(flower.x + 50) % 100}%`,
             bottom: "-120px",
           }}
           animate={{
             y: [0, -2500],
-            x: [0, heart.sway * 1.5, -heart.sway, heart.sway * 0.5, 0],
+            x: [0, flower.sway * 1.5, -flower.sway, flower.sway * 0.5, 0],
             rotate: [0, 8, -8, 4, 0],
             opacity: [0, 0.15, 0.25, 0.2, 0],
             scale: [0.9, 1, 1.15, 1, 0.9],
           }}
           transition={{
-            duration: heart.duration + 8,
+            duration: flower.duration + 8,
             repeat: Infinity,
-            delay: heart.delay + 1,
+            delay: flower.delay + 1,
             ease: "linear",
           }}
         >
-          <Heart 
-            size={heart.size + 30} 
-            strokeWidth={1} 
+          <Flower2
+            size={flower.size + 30}
+            strokeWidth={1}
             fill="currentColor"
           />
         </motion.div>
       ))}
 
-      {/* Third layer - very large background hearts */}
-      {hearts.slice(0, 15).map((heart, index) => (
+      {/* Third layer - very large background flowers */}
+      {flowers.slice(0, 15).map((flower, index) => (
         <motion.div
-          key={`xlarge-${heart.id}`}
+          key={`xlarge-${flower.id}`}
           className="absolute text-pink-100/20"
           style={{
-            left: `${(heart.x + 25) % 100}%`,
+            left: `${(flower.x + 25) % 100}%`,
             bottom: "-150px",
           }}
           animate={{
             y: [0, -2800],
-            x: [0, heart.sway * 2, -heart.sway * 1.5, heart.sway, 0],
+            x: [0, flower.sway * 2, -flower.sway * 1.5, flower.sway, 0],
             rotate: [0, 5, -5, 3, 0],
             opacity: [0, 0.1, 0.2, 0.15, 0],
             scale: [0.8, 1, 1.2, 1, 0.8],
           }}
           transition={{
-            duration: heart.duration + 15,
+            duration: flower.duration + 15,
             repeat: Infinity,
-            delay: heart.delay + 3,
+            delay: flower.delay + 3,
             ease: "linear",
           }}
         >
-          <Heart 
-            size={heart.size + 50} 
-            strokeWidth={0.8} 
+          <Flower2
+            size={flower.size + 50}
+            strokeWidth={0.8}
             fill="currentColor"
           />
         </motion.div>

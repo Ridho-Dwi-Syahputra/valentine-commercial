@@ -1,10 +1,10 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "My Valentine 💕",
+  title: "Valentine",
   description: "A special love letter for someone special",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/heart.svg",
   },
 };
 

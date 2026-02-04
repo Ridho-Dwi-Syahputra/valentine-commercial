@@ -154,12 +154,14 @@ export default function MemoriesSection() {
         className="flex items-center justify-center mt-12 sm:mt-16"
       >
         <br></br>
-        <div className="flex items-center justify-center gap-3">
-          <div className="w-16 sm:w-24 h-[1px] bg-gradient-to-r from-transparent to-pink-300"></div>
-          <Heart size={14} className="text-pink-400" fill="currentColor" />
-          <span className="text-pink-400 text-sm font-cursive italic select-none">awas masih nanya, "ayang sayang sama aku"</span>
-          <Heart size={14} className="text-pink-400" fill="currentColor" />
-          <div className="w-16 sm:w-24 h-[1px] bg-gradient-to-l from-transparent to-pink-300"></div>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-center">
+          <div className="hidden sm:block w-16 sm:w-24 h-[1px] bg-gradient-to-r from-transparent to-pink-300"></div>
+          <div className="flex items-center gap-2">
+            <Heart size={14} className="text-pink-400" fill="currentColor" />
+            <span className="text-pink-400 text-sm sm:text-base font-cursive italic select-none text-center">awas masih nanya, "ayang sayang sama aku"</span>
+            <Heart size={14} className="text-pink-400" fill="currentColor" />
+          </div>
+          <div className="hidden sm:block w-16 sm:w-24 h-[1px] bg-gradient-to-l from-transparent to-pink-300"></div>
         </div>
       </motion.div>
 
