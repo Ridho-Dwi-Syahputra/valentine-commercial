@@ -5,12 +5,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Camera, Heart, X } from "lucide-react";
 
 // Import actual images
-import image1 from "../assets/images/memories/image-1.jpg";
-import image2 from "../assets/images/memories/image-2.jpg";
-import image3 from "../assets/images/memories/image-3.jpg";
-import image4 from "../assets/images/memories/image-4.jpg";
-import image5 from "../assets/images/memories/image-5.jpg";
-import image6 from "../assets/images/memories/image-6.jpg";
+import image1 from "../assets/images/memories/image-1.png";
+import image2 from "../assets/images/memories/image-2.png";
+import image3 from "../assets/images/memories/image-3.png";
+import image4 from "../assets/images/memories/image-4.png";
+import image5 from "../assets/images/memories/image-5.png";
+import image6 from "../assets/images/memories/image-6.png";
 
 // Memories data with actual images
 const memories = [
